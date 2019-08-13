@@ -19,8 +19,8 @@ public class UserInfoService {
     public List<UserInfo> findAll(){return userInfoDao.findAll();}
     public UserInfo save(UserInfo userInfo){return userInfoDao.save(userInfo);}
     public void delete(UserInfo userInfo){userInfoDao.delete(userInfo);}
-    public UserInfo findOne(Integer userId){return userInfoDao.getOne(userId);}
-
+    public UserInfo findOne(Integer username){return userInfoDao.getOne(username);}
+    public UserInfo findOneforLogin(String username, String password){return userInfoDao.findByUsernameAndPassword(username, password);}
 
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/userInfo")
 public class UserInfoController {
@@ -25,9 +26,13 @@ public class UserInfoController {
         return userInfoService.findAll();
     }
 
-    @GetMapping(value = "/getOne/{id}")
+    @GetMapping(value = "/login/username={username}")
     @ResponseBody
-    public UserInfo getUserByUserId(@PathVariable("id") Integer id){return userInfoService.findOne(id);}
+    public UserInfo getUserByUserId(@PathVariable("username") String username,
+                                    @RequestParam("password") String password)
+    {
+        return userInfoService.findOneforLogin(username,password);
+    }
 
 
     //add user to user_info
