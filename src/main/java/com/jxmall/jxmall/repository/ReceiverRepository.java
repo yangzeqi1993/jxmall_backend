@@ -8,5 +8,4 @@ import java.util.List;
 public interface ReceiverRepository extends JpaRepository<Receiver,Integer> {
      Receiver findByUserIdAndReceiverId(Integer userId, Integer receiverId);
      List<Receiver> findAllByUserId(Integer userId);
-
 }

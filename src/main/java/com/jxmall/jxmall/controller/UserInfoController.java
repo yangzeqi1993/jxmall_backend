@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @CrossOrigin
@@ -16,8 +17,6 @@ public class UserInfoController {
     @Autowired
     UserInfoService userInfoService;
 
-
-
    //select info from user_info
     @GetMapping(value = "/list")
     @ResponseBody
@@ -26,23 +25,26 @@ public class UserInfoController {
         return userInfoService.findAll();
     }
 
-    @GetMapping(value = "/login/username={username}")
+    @GetMapping(value = "/login/userName={userName}")
     @ResponseBody
-    public UserInfo getUserByUserId(@PathVariable("username") String username,
-                                    @RequestParam("password") String password)
+    public UserInfo getUserByUserId(@PathVariable("userName") String userName,
+                                    @RequestParam("userPassword") String userPassword,
+                                    HttpSession httpSession)
     {
-        return userInfoService.findOneforLogin(username,password);
+        UserInfo userInfo = userInfoService.findOneforLogin(userName,userPassword);
+        httpSession.setAttribute("userId",userInfo.getUserId());
+        return userInfo;
     }
 
 
     //add user to user_info
     @PostMapping(value = "/addUser")
-    public UserInfo addUser(@RequestParam("username") String username,
-                            @RequestParam("password") String password)
+    public UserInfo addUser(@RequestParam("userName") String userName,
+                            @RequestParam("userPassword") String userPassword)
     {
         UserInfo userInfo = new UserInfo();
-        userInfo.setUsername(username);
-        userInfo.setPassword(password);
+        userInfo.setUserName(userName);
+        userInfo.setUserPassword(userPassword);
         return userInfoService.save(userInfo);
 
     }
@@ -50,26 +52,26 @@ public class UserInfoController {
 
 
     //update user to user_info
-    @PutMapping(value = "/updUser/{id}")
-    public UserInfo updUser(@PathVariable("id") Integer id,
-                            @RequestParam("username") String username,
-                            @RequestParam("password") String password)
+    @PutMapping(value = "/updUser/{userId}")
+    public UserInfo updUser(@PathVariable("userId") Integer userId,
+                            @RequestParam("userName") String userName,
+                            @RequestParam("password") String userPassword)
     {
         UserInfo userInfo = new UserInfo();
-        userInfo = userInfoService.findOne(id);
-        userInfo.setUsername(username);
-        userInfo.setPassword(password);
+        userInfo = userInfoService.findOne(userId);
+        userInfo.setUserName(userName);
+        userInfo.setUserPassword(userPassword);
         return userInfoService.save(userInfo);
 
     }
 
 
     //delete user to user_info
-    @DeleteMapping(value = "/delUser/{id}")
-    public void delUser(@PathVariable("id") Integer id)
+    @DeleteMapping(value = "/delUser/{userId}")
+    public void delUser(@PathVariable("userId") Integer userId)
     {
         UserInfo userInfo = new UserInfo();
-        userInfo = userInfoService.findOne(id);
+        userInfo = userInfoService.findOne(userId);
         userInfoService.delete(userInfo);
     }
 

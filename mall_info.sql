@@ -43,39 +43,34 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(32) DEFAULT NULL,
-  `user_password` varchar(16) DEFAULT NULL,
   `user_email` varchar(50) DEFAULT NULL,
   `user_phone` varchar(50) DEFAULT NULL,
   `user_sex` varchar(2) DEFAULT NULL,
   `user_real_name` varchar(50) DEFAULT NULL,
   `user_mall_name` varchar(50) DEFAULT NULL,
-  `user_address` varchar(50) DEFAULT NULL,
+  `user_address` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'aaa', 'aaa', 'zzz', 'zzz', 'z', 'zzz', 'zzz', 'zzz');
-INSERT INTO `user` VALUES ('2', 'bbb', 'bbb', 'bbb', 'bbb', 'b', 'bbb', 'bbb', 'bbb');
+INSERT INTO `user` VALUES ('1', 'yang', '123', '13838877841', '男', '杨泽琦', 'yang', '行署国际广场F座');
+INSERT INTO `user` VALUES ('2', 'bbb', 'bbb', 'bbb', 'b', 'bbb', 'bbb', 'bbb');
 
 -- ----------------------------
 -- Table structure for `user_info`
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_password` varchar(255) DEFAULT NULL,
+   KEY `user_id` (`user_id`),
+   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES ('1', 'qqq', 'qqq');
-INSERT INTO `user_info` VALUES ('7', 'aaa', 'aaa');
-INSERT INTO `user_info` VALUES ('3', 'test', '123');
-INSERT INTO `user_info` VALUES ('4', '342', '23422');
-INSERT INTO `user_info` VALUES ('5', '342', '23422');
-INSERT INTO `user_info` VALUES ('6', '342', '23422');
+INSERT INTO `user_info` VALUES ('1', 'yang', '123');

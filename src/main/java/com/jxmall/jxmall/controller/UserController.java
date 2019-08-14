@@ -4,7 +4,6 @@ package com.jxmall.jxmall.controller;
 import com.jxmall.jxmall.modle.User;
 import com.jxmall.jxmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -16,12 +15,31 @@ public class UserController {
 
     @GetMapping(value = "/getOne/{userId}")
     @ResponseBody
-    public User getUserByUserId(@PathVariable("userId") Integer userId)
+    public User getUserForLogin(@PathVariable("userId") Integer userId)
     {
-
         return userService.getUserByUserId(userId);
     }
 
+    @GetMapping(value = "/getUserName/userId={userId}")
+    public String getUserName(@PathVariable("userId") Integer userId)
+    {
+        return userService.getUserByUserId(userId).getUserName();
+    }
+
+    //add user to user_info
+    @PostMapping(value = "/addUser")
+    public String addUser(@RequestBody User user)
+    {
+        User isUser = userService.getUserByUserId(user.getUserId());
+        System.out.println(isUser.getUserName());
+
+        if (isUser.getUserId()!=null) {
+            return "false";
+        }else {System.out.println("Success");
+            userService.save(user);
+            return "Success";
+        }
+    }
 
     @PutMapping(value = "/updUser/{userId}")
     public User updateUser(@PathVariable("userId") Integer userId,

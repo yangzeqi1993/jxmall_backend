@@ -1,11 +1,13 @@
 package com.jxmall.jxmall.modle;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 
 @Entity(name = "receiver")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
@@ -16,10 +18,15 @@ public class Receiver {
 
     private Integer userId;
 
+
+    @Length(max = 50,message = "最大长度位50位")
+    @Pattern(regexp = "^[A-Za-z\\u4e00-\\u9fa5]+$",message = "用户姓名必须为中文，字母组成")
     private String receiverName;
 
+    @Length(min = 11,max = 11,message = "手机号必须是11位")
     private String receiverPhone;
 
+    @Length(max = 1000)
     private String receiverAddressInfo;
 
     public Integer getReceiverId() {

@@ -2,7 +2,6 @@ package com.jxmall.jxmall.service;
 
 
 import com.jxmall.jxmall.modle.Receiver;
-import com.jxmall.jxmall.modle.User;
 import com.jxmall.jxmall.repository.ReceiverRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
