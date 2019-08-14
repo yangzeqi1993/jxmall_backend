@@ -46,7 +46,6 @@ public class UserInfoController {
         userInfo.setUserName(userName);
         userInfo.setUserPassword(userPassword);
         return userInfoService.save(userInfo);
-
     }
 
 
