@@ -7,17 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 
 @Entity(name = "receiver")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@Valid
 public class Receiver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer receiverId;
 
     private Integer userId;
-
 
     @Length(max = 50,message = "最大长度位50位")
     @Pattern(regexp = "^[A-Za-z\\u4e00-\\u9fa5]+$",message = "用户姓名必须为中文，字母组成")
@@ -26,7 +27,7 @@ public class Receiver {
     @Length(min = 11,max = 11,message = "手机号必须是11位")
     private String receiverPhone;
 
-    @Length(max = 1000)
+    @Length(max = 1000, message = "最大长度为1000")
     private String receiverAddressInfo;
 
     public Integer getReceiverId() {

@@ -9,11 +9,9 @@ import javax.persistence.Id;
 
 
 @Entity(name = "user_info")
-@JsonIgnoreProperties({"userPassword"})
 public class UserInfo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     private String userName;
@@ -36,9 +34,7 @@ public class UserInfo {
         this.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
-    }
+    public String getUserPassword() { return userPassword; }
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;

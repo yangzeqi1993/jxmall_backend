@@ -18,7 +18,9 @@ public class UserService {
     public User save(User user){return userDao.save(user);}
     public void delete(User user){userDao.delete(user);}
     public User getUserByUserId(Integer userId){return userDao.getOne(userId); }
-
+    public User getUserByUserName(String userName){return userDao.findUserByUserName(userName); }
+    public User getUserByUserPhone(String userPhone){return userDao.findUserByUserPhone(userPhone); }
+    public User getUserByUserMallName(String userMallName){return userDao.findUserByUserMallName(userMallName); }
 
 
 }

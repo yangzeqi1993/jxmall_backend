@@ -36,7 +36,6 @@ public class ReceiverController {
         new_receiver.setReceiverPhone(receiver.getReceiverPhone());
         new_receiver.setReceiverAddressInfo(receiver.getReceiverAddressInfo());
         return receiverService.save(new_receiver);
-
     }
 
     @DeleteMapping(value = "/delReceiver/userId={userId}&receiverId={receiverId}")

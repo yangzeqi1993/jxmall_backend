@@ -26,16 +26,19 @@ public class UserController {
         return userService.getUserByUserId(userId).getUserName();
     }
 
-    //add user to user_info
+    // 用户注册
     @PostMapping(value = "/addUser")
     public String addUser(@RequestBody User user)
     {
-        User isUser = userService.getUserByUserId(user.getUserId());
-        System.out.println(isUser.getUserName());
 
-        if (isUser.getUserId()!=null) {
-            return "false";
-        }else {System.out.println("Success");
+        if (userService.getUserByUserName(user.getUserName()) != null) {
+            System.out.println(userService.getUserByUserName(user.getUserName()));
+            return "userName false";
+        }else if(userService.getUserByUserPhone(user.getUserPhone()) != null){
+            return "userPhone false";
+        }else if(userService.getUserByUserMallName(user.getUserMallName()) != null){
+            return "userMallName false";
+        }else {
             userService.save(user);
             return "Success";
         }

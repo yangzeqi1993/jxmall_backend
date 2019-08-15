@@ -1,8 +1,12 @@
 package com.jxmall.jxmall.modle;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Entity(name = "user")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
@@ -12,18 +16,28 @@ public class User
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
+    @NotBlank(message = "用户名不能为空")
     private String userName;
 
+    @Length(max = 50,message = "最大长度为50位")
+    @Email(message = "必须是邮箱格式")
     private String userEmail;
 
+    @Length(min = 11,max = 11,message = "手机号必须是11位")
     private String userPhone;
 
+    @Length(min = 1,max = 1)
     private String userSex;
 
+    @Length(max = 50,message = "最大长度位50位")
+    @Pattern(regexp = "^[A-Za-z\\u4e00-\\u9fa5]+$",message = "用户姓名必须为中文，字母组成")
     private String userRealName;
 
+    @Length(max = 50,message = "最大长度位50位")
+    @Pattern(regexp = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$",message = "用户昵称必须为中文，字母，数字组成")
     private String userMallName;
 
+    @Length(max = 1000,message = "最大长度位1000位")
     private String userAddress;
 
     public Integer getUserId() {
