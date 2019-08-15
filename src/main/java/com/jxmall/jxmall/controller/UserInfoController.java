@@ -30,15 +30,13 @@ public class UserInfoController {
         return userInfoService.findAll();
     }
 
-    @GetMapping(value = "/login/userName={userName}")
+    // 用户登录校验
+    @PostMapping(value = "/login/")
     @ResponseBody
-    public UserInfo getUserByUserId(@PathVariable("userName") String userName,
-                                    @RequestParam("userPassword") String userPassword,
-                                    HttpSession httpSession)throws Exception
+    public UserInfo getUserByUserId(@RequestBody UserInfo userInfo)throws Exception
     {
-        UserInfo userInfo = userInfoService.findOneforLogin(userName,userPassword);
         // httpSession.setAttribute("userId", userInfo.getUserId());
-        return userInfo;
+        return userInfoService.findOneforLogin(userInfo.getUserName(),userInfo.getUserPassword());
         // throw new Exception("登录失败！");
     }
 

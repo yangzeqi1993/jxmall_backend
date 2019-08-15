@@ -20,6 +20,7 @@ public class UserController {
         return userService.getUserByUserId(userId);
     }
 
+    // 根据userID得到用户名userName
     @GetMapping(value = "/getUserName/userId={userId}")
     public String getUserName(@PathVariable("userId") Integer userId)
     {

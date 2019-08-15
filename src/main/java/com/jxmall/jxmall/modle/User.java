@@ -23,18 +23,18 @@ public class User
     @Email(message = "必须是邮箱格式")
     private String userEmail;
 
-    @Length(min = 11,max = 11,message = "手机号必须是11位")
+//    @Length(min = 11,max = 11,message = "手机号必须是11位")
     private String userPhone;
 
     @Length(min = 1,max = 1)
     private String userSex;
 
     @Length(max = 50,message = "最大长度位50位")
-    @Pattern(regexp = "^[A-Za-z\\u4e00-\\u9fa5]+$",message = "用户姓名必须为中文，字母组成")
+//    @Pattern(regexp = "^[A-Za-z\\u4e00-\\u9fa5]+$",message = "用户姓名必须为中文，字母组成")
     private String userRealName;
 
     @Length(max = 50,message = "最大长度位50位")
-    @Pattern(regexp = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$",message = "用户昵称必须为中文，字母，数字组成")
+//    @Pattern(regexp = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$",message = "用户昵称必须为中文，字母，数字组成")
     private String userMallName;
 
     @Length(max = 1000,message = "最大长度位1000位")
