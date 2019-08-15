@@ -2,7 +2,9 @@ package com.jxmall.jxmall.controller;
 
 
 import com.jxmall.jxmall.modle.Receiver;
+import com.jxmall.jxmall.modle.User;
 import com.jxmall.jxmall.service.ReceiverService;
+import com.jxmall.jxmall.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,17 +17,23 @@ public class ReceiverController {
     @Autowired
     ReceiverService receiverService;
 
-    @GetMapping(value = "/list/userId={userId}")
-    public List<Receiver> getReceiverList(@PathVariable("userId") Integer userId){
-        return receiverService.findAllByUserId(userId);
+    @Autowired
+    UserService userService;
+
+    @GetMapping(value = "/list/userName={userName}")
+    public List<Receiver> getReceiverList(@PathVariable("userName") String userName){
+        User user = userService.getUserByUserName(userName);
+        return receiverService.findAllByUserId(user.getUserId());
     }
 
 
-    @PostMapping(value = "/add")
-    public Receiver addReceiver(@RequestBody Receiver receiver)
+    @PostMapping(value = "/add/userName={userName}")
+    public Receiver addReceiver(@PathVariable("userName") String userName,
+                                @RequestBody Receiver receiver)
     {
+        User user = userService.getUserByUserName(userName);
+        receiver.setUserId(user.getUserId());
         return receiverService.save(receiver);
-
     }
 
     @PutMapping(value = "/updReceiver")
@@ -38,12 +46,13 @@ public class ReceiverController {
         return receiverService.save(new_receiver);
     }
 
-    @DeleteMapping(value = "/delReceiver/userId={userId}&receiverId={receiverId}")
-    public void deleteReceiver(@PathVariable("userId") Integer userId,
+    @DeleteMapping(value = "/delReceiver/userName={userName}&receiverId={receiverId}")
+    public void deleteReceiver(@PathVariable("userName") String userName,
                                @PathVariable("receiverId") Integer receiverId)
     {
+        User user = userService.getUserByUserName(userName);
         Receiver receiver = new Receiver();
-        receiver = receiverService.getReceiverOne(userId, receiverId);
+        receiver = receiverService.getReceiverOne(user.getUserId(), receiverId);
         receiverService.delete(receiver);
     }
 }

@@ -20,11 +20,18 @@ public class UserController {
         return userService.getUserByUserId(userId);
     }
 
-    // 根据userID得到用户名userName
+    // 根据userId得到用户名userName
     @GetMapping(value = "/getUserName/userId={userId}")
     public String getUserName(@PathVariable("userId") Integer userId)
     {
         return userService.getUserByUserId(userId).getUserName();
+    }
+
+    // 根据userName得到用户名userId
+    @GetMapping(value = "/getUserId/userName={userName}")
+    public Integer getUserId(@PathVariable("userName") String userName)
+    {
+        return userService.getUserByUserName(userName).getUserId();
     }
 
     // 用户注册
