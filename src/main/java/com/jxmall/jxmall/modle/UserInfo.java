@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 
 @Entity(name = "user_info")
-@JsonIgnoreProperties({"userName"})
+// @JsonIgnoreProperties({"userName"})
 public class UserInfo {
 
     @Id

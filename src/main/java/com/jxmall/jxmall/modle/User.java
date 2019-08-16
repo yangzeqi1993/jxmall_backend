@@ -26,7 +26,7 @@ public class User
 //    @Length(min = 11,max = 11,message = "手机号必须是11位")
     private String userPhone;
 
-    @Length(min = 1,max = 1)
+//    @Length(min = 1,max = 1)
     private String userSex;
 
     @Length(max = 50,message = "最大长度位50位")
