@@ -13,13 +13,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/getOne/{userId}")
-    @ResponseBody
-    public User getUserForLogin(@PathVariable("userId") Integer userId)
-    {
-        return userService.getUserByUserId(userId);
-    }
-
     // 根据userId得到用户名userName
     @GetMapping(value = "/getUserName/userId={userId}")
     public String getUserName(@PathVariable("userId") Integer userId)
@@ -32,6 +25,14 @@ public class UserController {
     public Integer getUserId(@PathVariable("userName") String userName)
     {
         return userService.getUserByUserName(userName).getUserId();
+    }
+
+    // 用户信息查询,根据userName得到用户名user
+    @GetMapping(value = "/getUseOne/userName={userName}")
+    @ResponseBody
+    public User getUserForLogin(@PathVariable("userName") String userName)
+    {
+        return userService.getUserByUserName(userName);
     }
 
     // 用户注册
@@ -52,27 +53,20 @@ public class UserController {
         }
     }
 
-    @PutMapping(value = "/updUser/{userId}")
-    public User updateUser(@PathVariable("userId") Integer userId,
-                           @RequestParam("userEmail") String userEmail,
-                           @RequestParam("userPhone") String userPhone,
-                           @RequestParam("userSex") String userSex,
-                           @RequestParam("userRealName") String userRealName,
-                           @RequestParam("userMallName") String userMallName,
-                           @RequestParam("userAddress") String userAddress)
+    @PutMapping(value = "/updateUser/")
+    @ResponseBody
+    public User updateUser(@RequestBody User user)
     {
+        User update_user = userService.getUserByUserId(user.getUserId());
+        update_user.setUserName(user.getUserName());
+        update_user.setUserEmail(user.getUserEmail());
+        update_user.setUserPhone(user.getUserPhone());
+        update_user.setUserSex(user.getUserSex());
+        update_user.setUserRealName(user.getUserRealName());
+        update_user.setUserMallName(user.getUserMallName());
+        update_user.setUserAddress(user.getUserAddress());
 
-        User user = new User();
-        user = userService.getUserByUserId(userId);
-        user.setUserId(userId);
-        user.setUserEmail(userEmail);
-        user.setUserPhone(userPhone);
-        user.setUserSex(userSex);
-        user.setUserRealName(userRealName);
-        user.setUserMallName(userMallName);
-        user.setUserAddress(userAddress);
-
-        return userService.save(user);
+        return userService.save(update_user);
     }
 
 

@@ -31,12 +31,20 @@ public class UserInfoController {
     }
 
     // 用户登录校验
-    @PostMapping(value = "/login/")
+    @PostMapping(value = "/login")
     @ResponseBody
-    public UserInfo getUserByUserId(@RequestBody UserInfo userInfo)throws Exception
+    public String getUserByUserId( @RequestBody UserInfo userInfo)throws Exception
     {
         // httpSession.setAttribute("userId", userInfo.getUserId());
-        return userInfoService.findOneforLogin(userInfo.getUserName(),userInfo.getUserPassword());
+        User login_user = userService.getUserByUserName(userInfo.getUserName());
+        if(login_user==null){
+            return "No user";
+        }else if(!userInfoService.getByUserId(login_user.getUserId()).getUserPassword().equals(userInfo.getUserPassword())){
+            System.out.println(userInfoService.getByUserId(login_user.getUserId()).getUserPassword()+"asdfasfdafsd:"+userInfo.getUserPassword());
+            return "Password error";
+        }else {
+            return "Success";
+        }
         // throw new Exception("登录失败！");
     }
 
@@ -50,7 +58,6 @@ public class UserInfoController {
         userInfo.setUserName(userInfo.getUserName());
         userInfo.setUserPassword(userInfo.getUserPassword());
 
-        System.out.println("asdfasfdafsd"+userInfo.getUserPassword());
         return userInfoService.save(userInfo);
     }
 
